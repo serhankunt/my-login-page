@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +11,20 @@ export class LoginComponent {
   password:string = "";
 
   signIn(form:NgForm){
-    if(this.userNameOrEmail ===""){
-      alert("Username or email must be valid");
-      return;
+    if(form.valid){
+      console.log(form);
+      console.log(form.value);
     }
-    if(this.password ===""){
-      alert("Password must be valid");
-      return;
-    }
-    console.log(this.userNameOrEmail);
-    console.log(this.password);
+ 
+  }
 
+  checkValidation(el:HTMLInputElement){
+    if(!el.validity.valid){
+      el.classList.add("is-invalid");
+      el.classList.remove("is-valid");
+    }else{
+      el.classList.remove("is-invalid");
+      el.classList.add("is-valid");
+    }
   }
 }
