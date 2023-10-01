@@ -7,9 +7,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  userNameOrEmail :string = "";
-  password:string = "";
-
+ 
+  isShowPassword:boolean = false;
+  isPasswordFocus:boolean = false;
   signIn(form:NgForm){
     if(form.valid){
       console.log(form);
@@ -18,13 +18,21 @@ export class LoginComponent {
  
   }
 
-  checkValidation(el:HTMLInputElement){
-    if(!el.validity.valid){
-      el.classList.add("is-invalid");
-      el.classList.remove("is-valid");
-    }else{
-      el.classList.remove("is-invalid");
-      el.classList.add("is-valid");
+  showOrHidePassword(password: HTMLInputElement){
+    if(this.isShowPassword){
+      this.isShowPassword = false;
+      password.type = "password";
     }
+    else{
+      this.isShowPassword = true;
+      password.type = "text";
+    }
+  }
+
+  checkRegexPatternForPassword(el:HTMLInputElement){
+    const text = el.value;
+    
+    const upperCaseRegex = /[A-Z]/;
+    const upperCaseResult = upperCaseRegex.test(text);
   }
 }
